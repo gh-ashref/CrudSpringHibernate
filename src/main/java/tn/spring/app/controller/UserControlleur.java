@@ -28,13 +28,6 @@ public class UserControlleur {
 		return "list";
 	}
 
-	@RequestMapping("form")
-	public ModelAndView newContact(ModelAndView model) {
-		User user = new User();
-		model.addObject("user", user);
-		model.setViewName("form");
-		return model;
-	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String add(Model model, @RequestParam(name = "id") Long id,
