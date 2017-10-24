@@ -1,0 +1,6 @@
+projectKey=tn.iit:tp1
+serverUrl=http://localhost:9000
+serverVersion=6.5.0.27846
+dashboardUrl=http://localhost:9000/dashboard/index/tn.iit:tp1
+ceTaskId=AV9K2_3d9YqbWwJAX7Me
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AV9K2_3d9YqbWwJAX7Me

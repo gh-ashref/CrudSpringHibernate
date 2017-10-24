@@ -8,7 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.spring.app.dao.UserDao;
 import tn.spring.app.entities.User;
@@ -28,6 +32,13 @@ public class UserControlleur {
 		return "list";
 	}
 
+	@RequestMapping("form")
+	public ModelAndView newContact(ModelAndView model) {
+		User user = new User();
+		model.addObject("user", user);
+		model.setViewName("form");
+		return model;
+	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String add(Model model, @RequestParam(name = "id") Long id,
@@ -62,7 +73,6 @@ public class UserControlleur {
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
 	public String remove(@RequestParam(name = "id") Long id) {
 
-		
 		userDao.remove(id);
 
 		return "redirect:/user/list";
@@ -75,6 +85,16 @@ public class UserControlleur {
 		model.addAttribute("user", user);
 
 		return "form";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/Alluserjson")
+	private String findAll() throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = mapper.writeValueAsString(userDao.getAll());
+
+		return jsonInString;
+
 	}
 
 }
