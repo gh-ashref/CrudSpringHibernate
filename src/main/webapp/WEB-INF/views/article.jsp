@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="b"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,42 +27,74 @@
 </head>
 <body>
 	<div align="center">
-		<h1>New/Edit User</h1>
-		
+		<h1>New Article</h1>
 		<h3>
-			<a href="list">List User</a>
+			<a href="form">New User</a>
 		</h3>
-		<c:out value="${erreur}" />
-		<form action="addUser" method="post" modelAttribute="user">
+		<form action="addArticle" method="post" modelAttribute="article">
 			<table>
-				<input type="hidden" name="id" value=<c:out value="${user.id}" />>
-				<tr>
-					<td>First Name:</td>
 
-					<td><input type="text" name="firstName"
-						value=<c:out value="${user.firstName}" />></td>
+				<tr>
+					<td>content:</td>
+
+					<td><input type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>Last Name:</td>
-					<td><input type="text" name="lastName"
-						value=<c:out value="${user.lastName}" />></td>
+					<td>description:</td>
+					<td><input type="text" name="description"></td>
 				</tr>
 				<tr>
-					<td>Login:</td>
-					<td><input type="text" name="login"
-						value=<c:out value="${user.login}" />></td>
+					<td>keywords:</td>
+					<td><input type="text" name="keywords"></td>
 				</tr>
 				<tr>
-					<td>password:</td>
-					<td><input type="password" name="password"
-						value=<c:out value="${user.password}"/>></td>
+					<td>title:</td>
+					<td><input type="text" name="title"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center"><input type="submit"
 						value="Save" class="btn btn-success"></td>
 				</tr>
 			</table>
+
+
+			<select name="user_id" id="user_id">
+				<c:forEach var="user" items="${listUser}">
+
+					<option value=<c:out value="${user.login}" />><c:out
+							value="${user.firstName}" />
+						<c:out value="${user.lastName}" /></option>
+				</c:forEach>
+			</select>
+
+
+
+
 		</form>
 	</div>
+	<br />
+	<center>
+		<table border="1">
+
+			<th>content</th>
+			<th>description</th>
+			<th>keywords</th>
+			<th>title</th>
+			<th>user</th>
+
+			<b:forEach var="articles" items="${listArticle}">
+				<tr>
+
+					<td><c:out value="${articles.content}" /></td>
+					<td><c:out value="${articles.description}" /></td>
+					<td><c:out value="${articles.keywords}" /></td>
+					<td><c:out value="${articles.title}" /></td>
+					<td><c:out value="${articles.user.firstName}" /> <c:out
+							value="${articles.user.lastName}" /></td>
+
+				</tr>
+			</b:forEach>
+		</table>
+	</center>
 </body>
 </html>

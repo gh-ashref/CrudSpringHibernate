@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import tn.spring.app.dao.ArticleDao;
 import tn.spring.app.dao.UserDao;
+import tn.spring.app.entities.Article;
 import tn.spring.app.entities.User;
 
 @Controller
@@ -23,6 +25,8 @@ public class UserControlleur {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ArticleDao articleDao;
 
 	@RequestMapping("list")
 	public String list(Model model) {
@@ -63,7 +67,7 @@ public class UserControlleur {
 					return "form";
 				}
 			} else {
-				if (userDao.getUserByLogin(login).size()>0) {
+				if (userDao.getUserByLogin(login).size() > 0) {
 
 					model.addAttribute("user", user);
 					model.addAttribute("erreur", "utilisateur " + user.getLogin() + " existe déja :p");
@@ -91,6 +95,27 @@ public class UserControlleur {
 		model.addAttribute("user", user);
 
 		return "form";
+	}
+
+	@RequestMapping("addArticlef")
+	public String addArticlef(Model model) {
+		List<User> listUser = (List<User>) userDao.getAll();
+		model.addAttribute("listUser", listUser);
+		List<Article> listArticle = (List<Article>) articleDao.getAll();
+		model.addAttribute("listArticle", listArticle);
+		return "article";
+	}
+
+	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
+	public String addArticle(Model model, @RequestParam(name = "content") String content,
+			@RequestParam(name = "description") String description, @RequestParam(name = "keywords") String keywords,
+			@RequestParam(name = "title") String title, @RequestParam(name = "user_id") String user_id) {
+		List<User> u = userDao.getUserByLogin(user_id);
+		User uu = u.get(0);
+		Article a = new Article(content, description, keywords, title, uu);
+		articleDao.add(a);
+
+		return "redirect:/user/addArticlef";
 	}
 
 	@ResponseBody

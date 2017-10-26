@@ -20,12 +20,15 @@ public class Article {
 	public Article() {
 	}
 
-	public Article(String title, String description, String keywords, String content) {
+	public Article(String title, String description, String keywords, String content,User user) {
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
 		this.content = content;
+		this.user=user;
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

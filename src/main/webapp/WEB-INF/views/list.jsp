@@ -33,6 +33,9 @@
 		<h3>
 			<a href="form">New User</a>
 		</h3>
+		<h3>
+			<a href="addArticlef">New Article</a>
+		</h3>
 		<table border="1">
 
 			<th>First Name</th>
