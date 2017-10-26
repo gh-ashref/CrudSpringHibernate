@@ -28,8 +28,33 @@ public class UserDao {
 	@Transactional
 	public void add(User u) {
 
-		entityManager.persist(u);
+		// Category category = new Category("Hibernate Framework");
+		//
+		// Article articleOne = new Article("One-to-One Mapping", "One-to-One
+		// XML Mapping Tutorial",
+		// "Hibernate,One-to-One", "Content of One-to-One XML Mapping
+		// Tutorial");
+		// Article articleTwo = new Article("One-to-Many Mapping", "One-to-Many
+		// XML Mapping Tutorial",
+		// "Hibernate,One-to-Many", "Content of One-to-Many XML Mapping
+		// Tutorial");
+		// Article articleThree = new Article("Many-to-Many Mapping",
+		// "Many-to-Many XML Mapping Tutorial",
+		// "Hibernate,Many-to-Many", "Content of Many-to-Many XML Mapping
+		// Tutorial");
+		//
+		// Set<Article> articles = new HashSet<Article>();
+		// articles.add(articleOne);
+		// articles.add(articleTwo);
+		// articles.add(articleThree);
+		//
+		// category.setArticles(articles);
+		//
+		// entityManager.persist(category);
 
+		//List<Category> a = entityManager.createQuery("SELECT u FROM Category u", Category.class).getResultList();
+		//System.out.println(a.size());
+		entityManager.persist(u);
 	}
 
 	/**
@@ -43,8 +68,10 @@ public class UserDao {
 		entityManager.remove(entityManager.getReference(User.class, id));
 
 	}
+
 	/**
 	 * methode Ajout Utilisateur
+	 * 
 	 * @param user
 	 */
 	@Transactional
@@ -53,9 +80,9 @@ public class UserDao {
 
 	}
 
-	
 	/**
-	 * Fonction retourne tous les utilisateurs 
+	 * Fonction retourne tous les utilisateurs
+	 * 
 	 * @return
 	 */
 	public List<User> getAll() {
@@ -65,6 +92,7 @@ public class UserDao {
 
 	/**
 	 * Methode retourne utilisateur par Id
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -77,6 +105,7 @@ public class UserDao {
 
 	/**
 	 * Methode retourne Utilisateur par Login
+	 * 
 	 * @param login
 	 * @return
 	 */

@@ -63,8 +63,14 @@ public class UserControlleur {
 					return "form";
 				}
 			} else {
-				userDao.update(user);
+				if (userDao.getUserByLogin(login).size()>0) {
 
+					model.addAttribute("user", user);
+					model.addAttribute("erreur", "utilisateur " + user.getLogin() + " existe déja :p");
+					return "form";
+				} else {
+					userDao.update(user);
+				}
 			}
 			return "redirect:/user/list";
 		}
